@@ -1,0 +1,16 @@
+{
+    "repository": {
+        "type": "memory"
+    },
+    "data": {
+        "file": "./data/airports.csv"
+    },
+    "middlewares": {
+        "xmlParser": {
+            "xmlOptions": {
+                "explicitRoot": false,
+                "explicitArray": false
+            }
+        }
+    }
+}
