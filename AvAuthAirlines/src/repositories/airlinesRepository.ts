@@ -1,21 +1,18 @@
 import * as csv from "csvtojson";
 import Airline from "../models/airline";
-import config = require('config');
+import * as Config from 'config';
 
-export default class AirlineRepository {
+export class AirlineRepository {
 
-    airlines: Airline[];
+    static airlines: Airline[] = [];
 
-    constructor() {
-        this.airlines = [];
-        load(this.airlines);
-    };
+    private constructor() {};
 
-    async getAll() {
+    static async getAll() {
         return this.airlines;
     }
 
-    async getById(id : string) {
+    static async getById(id: string) {
         for (let item of this.airlines) {
             if (item.IATA_CODE == id) {
                 return item;
@@ -23,21 +20,24 @@ export default class AirlineRepository {
         }
     }
 
+    static async loadData() {
+        try {
+            let result = await csv().fromFile(Config.get('data.file'));
+            AirlineRepository.convertToModel(result);
+        } catch (err) {
+            console.log(`Error while loading data file: ${err}`);
+        }
+    }
+
+    private static convertToModel(input) {
+        input.shift();
+        for (let item of input) {
+            let airline = new Airline(item.IATA_CODE, item.AIRLINE);
+            
+            AirlineRepository.airlines.push(airline);
+        }
+    }
+
 }
 
-async function load(output) {
-    try {
-        let result = await csv().fromFile(config.get('data.file'));
-        convertToModel(result, output);
-    } catch (err) {
-        console.log(`Error while loading data file: ${err}`);
-    }
-}
 
-function convertToModel(input, output) {
-    input.shift();
-    for (let item of input) {
-        let airline = new Airline(item.IATA_CODE, item.AIRLINE);
-        output.push(airline);
-    }
-}

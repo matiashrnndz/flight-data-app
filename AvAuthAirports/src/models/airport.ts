@@ -1,4 +1,4 @@
-export default class airport {
+export default class Airport {
 
     public IATA_CODE : string;
     public AIRPORT : string;

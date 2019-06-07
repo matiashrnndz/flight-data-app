@@ -1,15 +1,11 @@
-import AirlineService from '../services/airlinesService';
+import { AirlineService } from '../services/airlinesService';
 
-export default class AirlineController {
+export class AirlineController {
 
-    private airlineService : AirlineService;
+    private constructor() {}
 
-    constructor() {
-        this.airlineService = new AirlineService();
-    }
-
-    async getAll (ctx, next) {
-        let airlines = await this.airlineService.getAll();
+    static async getAll (ctx, next) {
+        let airlines = await AirlineService.getAll();
         if (airlines) {
             ctx.body = airlines;
         } else {
@@ -19,9 +15,9 @@ export default class AirlineController {
         await next();
     }
 
-    async getById (ctx, next) {
+    static async getById (ctx, next) {
         let id = ctx.params.id;
-        let airline = await this.airlineService.getById(id);
+        let airline = await AirlineService.getById(id);
         if (airline) {
             ctx.body = airline;
         } else {
@@ -30,4 +26,5 @@ export default class AirlineController {
         }
         await next();
     }
+    
 }
