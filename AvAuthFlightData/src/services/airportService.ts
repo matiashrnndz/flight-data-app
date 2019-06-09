@@ -2,14 +2,14 @@ import { AirportRepository } from '../repositories/airportRepository';
 
 export class AirportService {
 
-    private constructor() {}
+    private constructor() { }
 
     static async getAll() {
         return await AirportRepository.getAll();
     }
 
-    static async getById(id: string) {
-        return await AirportRepository.getById(id);
+    static async save(airport) {
+        return await AirportRepository.save(airport);
     }
 
 }

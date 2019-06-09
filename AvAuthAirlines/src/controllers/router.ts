@@ -1,10 +1,7 @@
-import AirlineController from './airlinesController';
-import Router = require('koa-router');
+import { AirlineController } from './airlinesController';
+import * as Router from 'koa-router';
 
-const router = new Router();
-const airlineController = new AirlineController();
+export const router = new Router();
 
-router.get('/airlines', (ctx, next) => airlineController.getAll(ctx, next));
-router.get('/airlines/:id', (ctx, next) => airlineController.getById(ctx, next));
-
-module.exports = router;
+router.get('/airlines', (ctx, next) => AirlineController.getAll(ctx, next));
+router.get('/airlines/:id', (ctx, next) => AirlineController.getById(ctx, next));

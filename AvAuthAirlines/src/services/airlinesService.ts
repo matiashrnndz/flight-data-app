@@ -1,19 +1,15 @@
-import AirlineRepository from '../repositories/airlinesRepository';
+import { AirlineRepository } from '../repositories/airlinesRepository';
 
-export default class AirlineService {
+export class AirlineService {
 
-    private airlineRepository : AirlineRepository;
+    private constructor() {}
 
-    constructor() {
-        this.airlineRepository = new AirlineRepository();
+    static async getAll() {
+        return await AirlineRepository.getAll();
     }
 
-    async getAll() {
-        return await this.airlineRepository.getAll();
-    }
-
-    async getById(id : string) {
-        return await this.airlineRepository.getById(id);
+    static async getById(id: string) {
+        return await AirlineRepository.getById(id);
     }
 
 }

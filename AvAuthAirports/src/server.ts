@@ -1,14 +1,16 @@
+import * as Koa from 'koa';
+import * as logger from 'koa-logger';
+import * as json from 'koa-json';
+import * as bodyParser from 'koa-bodyparser';
+import { router } from './controllers/router';
+import * as minimist from 'minimist';
+
 export async function initServer() {
-    const Koa = require('koa');
-    const logger = require('koa-logger');
-    const json = require('koa-json');
-    const bodyParser = require('koa-bodyparser');
-    const router = require('./controllers/router');
-    const argv = require('minimist')(process.argv.slice(2));
-    
+
+    const argv = minimist(process.argv.slice(2));
     const app = new Koa();
     const port = argv.port ? parseInt(argv.port) : 8081;
-    
+        
     app.use(logger());
     app.use(bodyParser());
     app.use(json({ pretty: true }));

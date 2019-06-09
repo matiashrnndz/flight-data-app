@@ -1,15 +1,11 @@
-import AirportService from '../services/airportService';
+import { AirportService } from '../services/airportService';
 
-export default class AirportController {
+export class AirportController {
 
-    private airportService : AirportService;
+    private constructor() {}
 
-    constructor() {
-        this.airportService = new AirportService();
-    }
-
-    async getAll (ctx, next) {
-        let airports = await this.airportService.getAll();
+    static async getAll (ctx, next) {
+        let airports = await AirportService.getAll();
         if (airports) {
             ctx.body = airports;
         } else {
@@ -19,9 +15,9 @@ export default class AirportController {
         await next();
     }
 
-    async getById (ctx, next) {
+    static async getById (ctx, next) {
         let id = ctx.params.id;
-        let airport = await this.airportService.getById(id);
+        let airport = await AirportService.getById(id);
         if (airport) {
             ctx.body = airport;
         } else {
