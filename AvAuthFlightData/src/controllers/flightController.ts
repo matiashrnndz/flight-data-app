@@ -40,12 +40,9 @@ export class FlightController {
 
     private static async postFlights(url: string, tamLotes: Number, offset: Number) {
         let flights = await FlightService.getAll(tamLotes, offset);
-
-        let dt = new Date();
-        let utcDate = dt.toUTCString();
-
+        let dt = new Date().getTime();
         let body = {
-            timestamp : utcDate,
+            timestamp : dt,
             tamLotes : tamLotes,
             offset : offset,
             flights : flights

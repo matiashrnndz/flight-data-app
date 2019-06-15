@@ -7,8 +7,8 @@ import { initDataLoader } from './data_loader/loadData';
     try {
         await Repository.initRepository();
         await initServer();
-        await initDataLoader();
-        setTimeout(() => FlightController.sendFlights(), 10000);
+        //await initDataLoader();
+        setTimeout(() => FlightController.sendFlights(), 0);
     } catch(err) {
         console.log(`Error initializing server: ${err}`);
         process.exit(1);

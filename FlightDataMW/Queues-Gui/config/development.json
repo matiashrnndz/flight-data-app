@@ -1,0 +1,8 @@
+{
+    "redis": {
+        "host": "localhost"
+    },
+    "queues": [
+        { "name": "flights", "host": "local" }
+    ]
+}

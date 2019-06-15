@@ -8,19 +8,11 @@
         "airports-uri": "http://localhost:8081/airports"
     },
     "carga": {
-        "cantLotes": 5,
-        "tamLote": 1,
+        "cantLotes": 2,
+        "tamLote": 7,
         "offset": 0
     },
     "clients": {
-        "flightDataMW-uri": "http://localhost:8085/flights"
-    },
-    "middlewares": {
-        "xmlParser": {
-            "xmlOptions": {
-                "explicitRoot": false,
-                "explicitArray": false
-            }
-        }
+        "flightDataMW-uri": "http://localhost:8090/flights"
     }
 }
