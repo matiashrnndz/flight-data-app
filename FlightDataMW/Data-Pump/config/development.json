@@ -1,0 +1,8 @@
+{
+    "repository": {
+        "type": "redis"
+    },
+    "providers": {
+        "router.url": "../../../Router/src/providerApi/providerApi" 
+    }
+}
