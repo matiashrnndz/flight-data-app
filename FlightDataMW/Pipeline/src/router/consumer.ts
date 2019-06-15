@@ -1,13 +1,15 @@
-const FlightRepository = require('./flightRepository');
+import Setup from '../setup/setup';
 const Queue = require('bull');
 
-module.exports = class FlightRedisRepository extends FlightRepository {
+export default class Consumer {
 
-    producer = {};
+    setup : Setup;
+    queue: any;
 
     constructor() {
-        super();
-        this.queue = new Queue('new-flights');
+        this.setup = new Setup();
+
+        this.queue = new Queue('flights-to-process');
 
         this.queue.on('drained', (job) => {
             console.log(`All requests have been processed`);
@@ -19,15 +21,12 @@ module.exports = class FlightRedisRepository extends FlightRepository {
         });
     }
 
-    async getAll() {
+    async consume() {
         this.queue.process(async (job, done) => {
-            this.producer.publish(job.data);
+            this.setup.setup(job.data);
             done();
         });
     }
 
-    setProducer(producer) {
-        this.producer = producer;
-    }
 
 }
