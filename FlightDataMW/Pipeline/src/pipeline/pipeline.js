@@ -8,7 +8,7 @@ function deferBinding() {
     try {
         implementation = require(`./${type}-pipeline`);
     } catch (err) {
-        implementation = require('./direct-pipeline');
+        implementation = require('./direct-pipelineTS');
     }
     
     return implementation;

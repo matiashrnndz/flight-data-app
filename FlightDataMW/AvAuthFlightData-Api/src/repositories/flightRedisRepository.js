@@ -5,7 +5,7 @@ module.exports = class FlightRedisRepository extends FlightRepository {
 
     constructor() {
         super();
-        this.queue = new Queue('new-flights');
+        this.queue = new Queue('flights-to-process');
     }
 
     async save(flight) {

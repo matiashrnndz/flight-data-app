@@ -1,4 +1,5 @@
-const AbstractPipeline = require('./abstract-pipeline');
+import AbstractPipeline from './abstract-pipeline';
+import ForwardToDeliver from '../router/forwardToDeliver';
 
 class DirectPipeline extends AbstractPipeline {
 
@@ -7,49 +8,82 @@ class DirectPipeline extends AbstractPipeline {
         let pendingFilters = this.filters.slice();
         let pendingTransformations = this.transformations.slice();
         let pendingOutputFields = this.outputFields.slice();
+        let errorDetected = false;
+
+        process.nextTick(() => {
+            //console.log("nextTick");
+            loopFilters(null, input);
+        });
 
         let loopFilters = (err, result) => {
-            if (err) {
-                return this.emit('error', err);
+            //console.log("loopFilters");
+            if (!errorDetected) {
+                if (err) {
+                    //console.log("loopFilters : error");
+                    errorDetected = true;
+                    return this.emit('error', err);
+                }
+                if (pendingFilters.length === 0) {
+                    //console.log("loopFilters : lenght = 0");
+                    return loopTransformations(null, result);
+                }
+                process.nextTick(() => {
+                    //console.log("loopFilters : nextTick");
+                    let filter = pendingFilters.shift();
+                    filter.call(this, result, loopFilters);
+                });
             }
-            if (pendingFilters.length === 0) {
-                return loopTransformations(null, result);
-            }
-            let filter = pendingFilters.shift();  
-            process.nextTick(() => {
-                filter.call(this, result, loopFilters);
-            });
         };
 
         let loopTransformations = (err, result) => {
-            if (err) {
-                return this.emit('error', err);
+            //console.log("loopTransformations");
+            if(!errorDetected) {
+                if (err) {
+                    //console.log("loopTransformations : error");
+                    errorDetected = true;
+                    return this.emit('error', err);
+                }
+                if (pendingTransformations.length === 0) {
+                    //console.log("loopTransformations : lenght = 0");
+                    return loopOutputFields(null, result);
+                }
+                process.nextTick(() => {
+                    //console.log("loopTransformations : nextTick");
+                    let transformation = pendingTransformations.shift();  
+                    transformation.call(this, result, loopTransformations);
+                });
             }
-            if (pendingTransformations.length === 0) {
-                return loopOutputFields(null, result);
-            }
-            let transformation = pendingTransformations.shift();  
-            process.nextTick(() => {
-                transformation.call(this, result, loopTransformations);
-            });
         };
 
         let loopOutputFields = (err, result) => {
-            if (err) {
-                return this.emit('error', err);
+            //console.log("loopOutputFields");
+            if (!errorDetected) {
+                if (err) {
+                    errorDetected = true;
+                    return this.emit('error', err);
+                }
+                if (pendingOutputFields.length === 0) {
+                    //console.log("loopOutputFields : lenght = 0");
+                    return deliverResult(null, result);
+                }
+                process.nextTick(() => {
+                    //console.log("loopOutputFields : nextTick");
+                    let outputField = pendingOutputFields.shift();  
+                    outputField.call(this, result, loopOutputFields);
+                });
             }
-            if (pendingOutputFields.length === 0) {
-                return this.emit('end', result);
-            }
-            let outputField = pendingOutputFields.shift();  
-            process.nextTick(() => {
-                outputField.call(this, result, loopOutputFields);
-            });
         };
 
-        process.nextTick(() => {
-            loopFilters(null, input);
-        });
+        let deliverResult = (err, result) => {
+            if (!errorDetected) {
+                if (err) {
+                    errorDetected = true;
+                    return this.emit('error', err);
+                }
+                ForwardToDeliver.forward(result);
+                return this.emit('end', result);
+            }
+        }
     }
 }
 

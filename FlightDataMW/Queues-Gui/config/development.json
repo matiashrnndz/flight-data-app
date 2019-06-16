@@ -3,7 +3,7 @@
         "host": "localhost"
     },
     "queues": [
-        { "name": "new-flights", "host": "local" },
-        { "name": "flights-to-process", "host": "local" }
+        { "name": "flights-to-process", "host": "local" },
+        { "name": "flights-to-deliver", "host": "local" }
     ]
 }

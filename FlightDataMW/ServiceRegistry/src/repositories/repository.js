@@ -1,8 +1,7 @@
-var Config = require('config');
+var config = require('config');
 
 function deferBinding(repositoryName) {
-    //let type = Config.get('repository.type') || 'redis';
-    let type = 'redis';
+    let type = config.get('repository.type') || 'memory';
     let implementation = require(`./${repositoryName}${capitalize(type)}Repository`);
     return implementation;
 }

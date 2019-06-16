@@ -1,19 +1,20 @@
-const EventEmitter = require('events');
-const Util = require('util');
+import * as EventEmitter from 'events';
 
-class AbstractPipeline {
+export default class AbstractPipeline extends EventEmitter {
+
+    filters: ((input, next) => void) [];
+    transformations: ((input, next) => void) [];
+    outputFields: ((input, next) => void) [];
     
     constructor() {
+        super();
         this.filters = [];
         this.transformations = [];
         this.outputFields = [];
-        EventEmitter.call(this);
-        Util.inherits(AbstractPipeline, EventEmitter);
     }
 
     useOutputFields(outputFields) {
         this.outputFields.push(outputFields);
-        console.log(this.outputFields);
     }
 
     useTransformation(transformation) {
@@ -30,5 +31,3 @@ class AbstractPipeline {
         throw new Error('Not implemented');
     }
 }
-
-module.exports = AbstractPipeline;
