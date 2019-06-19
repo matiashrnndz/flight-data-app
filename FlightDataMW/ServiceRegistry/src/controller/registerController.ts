@@ -17,7 +17,6 @@ export class RegisterController {
             ctx.status = 400;
             ctx.body = { status: 400, message: `Invalid registers data` };
         }
-
         await next();
     }
 
@@ -29,6 +28,11 @@ export class RegisterController {
             ctx.status = 400;
             ctx.body = { status: 400, message: `Invalid update data` };
         }
+        await next();
+    }
+
+    async discover (ctx, next) {
+        ctx.body = await this.registerService.discover();
         await next();
     }
 
