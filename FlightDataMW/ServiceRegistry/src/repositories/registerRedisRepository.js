@@ -23,17 +23,23 @@ module.exports = class RegisterRedisRepository extends RegisterRepository {
             if (err) {
                 return new Error(err.message);
             }
-
             if (number >= 1) {
                 return `Deleted ${key}.`;
             }
-
             return `There was no ${key} in database.`
         })
     }
 
     async discover() {
-        //TODO
+        this.client.get(discover-functions, function(err, reply) {
+            if (err) {
+                return new Error(err.message);
+            }
+            if (reply) {
+                return reply;
+            }
+            return 'There is no discover functions available, try again.'
+        });
     }
 
 }

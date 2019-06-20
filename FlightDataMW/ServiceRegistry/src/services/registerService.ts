@@ -18,6 +18,10 @@ export class RegisterService {
         return await this.registerRepository.delete(id);
     }
 
+    async discover() {
+        return await this.registerRepository.discover();
+    }
+
 }
 
 function generateUUID() {
