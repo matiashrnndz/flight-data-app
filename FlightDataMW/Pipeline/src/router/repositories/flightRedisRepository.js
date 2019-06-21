@@ -4,11 +4,12 @@ import ForwardToProcess from '../forwardToProcess';
 import * as redis from 'redis';
 
 module.exports = class FlightRedisRepository extends FlightRepository {
-
+    
     constructor() {
         super();
         this.initQueueToProcess();
         this.initRedis();
+        this.startRedisProcesses();
     }
 
     initQueueToProcess() {
@@ -23,9 +24,13 @@ module.exports = class FlightRedisRepository extends FlightRepository {
         this.client.on('connect', function() {
             console.log(`flightRedisRepository connected to redis on : 127.0.0.1:6379`);
         });
+    }
+
+    startRedisProcesses() {
         this.airlineKeys = {};
         this.refreshConfigs();
         this.refreshConfigsPeriodically();
+        this.updateDescriptionsPeriodically();
     }
 
     async getAll() {
@@ -46,6 +51,18 @@ module.exports = class FlightRedisRepository extends FlightRepository {
             }
             this.airlineKeys = keys;
         });
+    }
+
+    async setDescriptions(registerFormat, filterDescription, transformationDescription, outputFieldsDescription) {
+        this.descriptionValue = registerFormat + filterDescription + transformationDescription + outputFieldsDescription;
+    }
+
+    async updateDescriptionsPeriodically() {
+        setInterval(() => { this.updateDescriptionsInRedis(); }, 10000);
+    }
+
+    async updateDescriptionsInRedis() {
+        this.client.set('discover-functions', this.descriptionValue);
     }
 
 }

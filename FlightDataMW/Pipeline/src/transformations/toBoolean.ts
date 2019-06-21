@@ -1,12 +1,12 @@
 import { IInputData, IInputDataConfigTransformations } from '../iInputData';
 import * as moment from 'moment';
 
-/*
-    * {
-    *   type : toBoolean
-    *   field : fieldName
-    * }
-*/
+export var toBooleanDescription = 
+`{
+    name: toBoolean,
+    field : nameOfField
+}`
+
 export var toBoolean = (input, next) => {
 
     let field = input.config.transformations[0].field;

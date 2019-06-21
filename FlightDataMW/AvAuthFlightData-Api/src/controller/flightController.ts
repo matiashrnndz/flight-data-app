@@ -13,15 +13,15 @@ export class FlightController {
         let data = ctx.request.body;
         if (data) {
             if (data.flights) {
-                async.forEachOf(data.flights, (value, key, callback) => {
+                async.forEachOf(data.flights, (value: any, key, callback) => {
+                    console.log(`request processed in ${this.time(value.TIMESTAMP)} seconds.`);
                     this.flightService.save(value);
                     callback();
                 }, err => {
                     if (err) {
                         console.log('A request failed to process');
-                      } else {
-                        console.log(`All requests have been processed, took ${this.time(data.timestamp)} seconds`);
                       }
+                    console.log(`All requests have been processed`);
                 });
             }
             ctx.body = data;

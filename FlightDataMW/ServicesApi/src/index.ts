@@ -6,15 +6,3 @@ this.flightController = new FlightController();
 this.flightService = new FlightService(this.flightController);
 this.flightRepository = new FlightRepository(this.flightService);
 this.flightRepository.getAll();
-/*
-import { initServer } from './server';
-
-(async () => {
-    try {
-        await initServer();
-    } catch(err) {
-        console.log(`Error initializing server: ${err}`);
-        process.exit(1);
-    }
-})();
-*/

@@ -1,11 +1,11 @@
 import { IInputData, IInputDataConfigFilters } from '../iInputData';
 
-/*
-    * {
-    *   name : filterFieldNotEmpty
-    *   field : nameOfField
-    * }
-*/
+export var filterFieldNotEmptyDescription = 
+`{
+    name: filterFieldNotEmpty,
+    field: nameOfField
+}`
+
 export var filterFieldNotEmpty = (input: IInputData, next) => {
     let field = input.config.filters[0].field;
 

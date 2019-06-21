@@ -1,11 +1,12 @@
 const RegisterRepository = require('./registerRepository');
-import * as redis from 'redis';
+//import * as redis from 'redis';
+const asyncRedis = require("async-redis");    
 
 module.exports = class RegisterRedisRepository extends RegisterRepository {
 
     constructor() {
         super();
-        this.client = redis.createClient(6379, '127.0.0.1');
+        this.client = asyncRedis.createClient(6379, '127.0.0.1');
         this.client.on('connect', function() {
             console.log(`Connected to redis on : 127.0.0.1:6379`);
         });
@@ -31,15 +32,7 @@ module.exports = class RegisterRedisRepository extends RegisterRepository {
     }
 
     async discover() {
-        this.client.get(discover-functions, function(err, reply) {
-            if (err) {
-                return new Error(err.message);
-            }
-            if (reply) {
-                return reply;
-            }
-            return 'There is no discover functions available, try again.'
-        });
+        return await this.client.get("discover-functions");
     }
 
 }

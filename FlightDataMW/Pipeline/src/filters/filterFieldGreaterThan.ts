@@ -1,14 +1,14 @@
 import { IInputData } from '../iInputData';
 
-/*
-    * {
-    *   name : filterFieldGreaterThan,
-    *   field: fieldName
-    *   params : [
-    *       number: Number
-    *   ]
-    * }
-*/
+export var filterFieldGreaterThanDescription = 
+`{
+    name: filterFieldGreaterThan,
+    field: nameOfField,
+    params : [
+        numberThatTheFieldHasToBeGreaterThan
+    ]
+}`
+
 export var filterFieldGreaterThan = (input: IInputData, next) => {
     let field = input.config.filters[0].field;
     let number = input.config.filters[0].params[0];
