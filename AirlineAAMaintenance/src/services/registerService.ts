@@ -10,6 +10,10 @@ export class RegisterService {
     }
 
     async register(url, data) {
-        this.registerController.register(url, data);
+        return await this.registerController.register(url, data);
+    }
+
+    async discover(url) {
+        return await this.registerController.discover(url);
     }
 }

@@ -3,18 +3,22 @@ import axios from 'axios';
 export class RegisterController {
 
     async register(url: string, data) {
-        axios.post(url, data)
-        .then((res) => { })
+        return axios.post(url, data)
+        .then((res) => {
+            return res.data;
+         })
         .catch((error) => {
-            console.error(error);
+            return new Error(error);
         });
     }
 
     async discover(url: string) {
-        axios.get(url)
-        .then((res) => { })
+        return axios.get(url)
+        .then((res) => {
+            return res.data;
+         })
         .catch((error) => {
-            console.error(error);
+            return new Error(error);
         });
     }
 
