@@ -12,12 +12,11 @@ export class FlightService {
     async deliver(flight) {
         let url = `http://${flight.config.options.ip}:${flight.config.options.port}/flights`;
         let protocol = flight.config.options.protocol;
-        //let protocol = 'xml';
         delete flight.config;
         if (protocol == 'xml') {
             flight = convert.js2xml(flight, { compact: true });
         }
-        this.flightController.deliver(url, protocol, flight);
+        this.flightController.deliver(url, flight);
     }
 
 }

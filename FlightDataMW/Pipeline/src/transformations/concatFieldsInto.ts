@@ -22,7 +22,7 @@ export var concatFieldsInto = (input: IInputData, next) => {
         next(null, input);
     }
 
-    let result = '';
+    let result = ' ';
     for(let i = 0; i < params.length; i++) {
         if (!input.hasOwnProperty(params[i])) {
             next(new Error(`concatFieldsInto : ${field} does not exist for Input ID : ${input.id} `), null);

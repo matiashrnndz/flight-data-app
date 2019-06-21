@@ -33,7 +33,7 @@ async function initPipeline(flight) {
         console.log(`${err}`);
     });
     pipeline.on('end', (result) => {
-        console.log(`The result is ${JSON.stringify(result)}`);
+        //console.log(`The result is ${JSON.stringify(result)}`);
     });
     if(flight.config.filters) {
         for (let i = 0; i < flight.config.filters.length; i++) {
