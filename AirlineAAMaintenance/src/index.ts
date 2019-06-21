@@ -7,7 +7,12 @@ let registerService = new RegisterService();
 (async () => {
     try {
         await initServer();
-        registerService.register(Config.get('url-to-register'), registerData());
+
+        // UNCOMMENT TO EXCECUTE REGISTER
+        //console.log(await registerService.register(Config.get('url-to-register'), registerData()));
+
+        // UNCOMMENT TO DISCOVER
+        //console.log(await registerService.discover(Config.get('url-to-discover')));
 
     } catch(err) {
         console.log(`Error initializing server: ${err}`);
@@ -16,5 +21,48 @@ let registerService = new RegisterService();
 })();
 
 function registerData() {
-    
+    let config = {
+        options: {
+            airline: "AA",
+            ip: "localhost",
+            port: 8070,
+            protocol: "json"
+        },
+        filters: [
+            {
+                type: "filterFieldValueOne",
+                field: "CANCELLED"
+            },
+            {
+                type: "filterFieldNotEmpty",
+                field: "CANCELLATION_REASON"
+            }
+        ],
+        transformations: [
+            {
+                type: "dateFormatter",
+                params: ["DD-MM-YYYY", "DATE"]
+            },
+            {
+                type: "toBoolean",
+                field: "CANCELLED"
+            },
+            {
+                type: "parseCancellationReason"
+            }
+        ],
+        outputFields: [
+            "TIMESTAMP",
+            "DATE",
+            "AIRLINE",
+            "FLIGHT_NUMBER",
+            "ORIGIN_AIRPORT_NAME",
+            "DESTINATION_AIRPORT_NAME",
+            "SCHEDULED_DEPARTURE",
+            "CANCELLED",
+            "CANCELLATION_REASON"
+        ]	
+    };
+
+    return config;
 }
