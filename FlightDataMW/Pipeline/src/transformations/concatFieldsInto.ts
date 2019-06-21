@@ -1,14 +1,14 @@
 import { IInputData, IInputDataConfigFilters } from '../iInputData';
 
-/*
-    * {
-    *   name : concatFieldsInto,
-    *   field : nameOfField,
-    *   params : [
-    *       listOFFields
-    *   ]
-    * }
-*/
+export var concatFieldsIntoDescription = 
+`{
+    name: concatFieldsInto,
+    field: nameOfField,
+    params : [
+        listOfFieldsToConcat
+    ]
+}`
+
 export var concatFieldsInto = (input: IInputData, next) => {
     let field = input.config.transformations[0].field;
     let params = input.config.transformations[0].params;

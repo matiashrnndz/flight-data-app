@@ -1,10 +1,10 @@
 import { IInputData, IInputDataConfigFilters } from '../iInputData';
 
-/*
-    * {
-    *   name : parseCancellationReason
-    * }
-*/
+export var parseCancellationReasonDescription = 
+`{
+    name: parseCancellationReason
+}`
+
 export var parseCancellationReason = (input: IInputData, next) => {
     let field = 'CANCELLATION_REASON';
 

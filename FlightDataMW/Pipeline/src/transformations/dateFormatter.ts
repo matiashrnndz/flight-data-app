@@ -1,15 +1,15 @@
 import { IInputData, IInputDataConfigTransformations } from '../iInputData';
 import * as moment from 'moment';
 
-/*
-    * {
-    *   name : dateFormatter
-    *   params : [
-    *       '{format (see momentjs library)}',
-    *       '{new field name}'
-    *   ]
-    * }
-*/
+export var dateFormatterDescription = 
+`{
+    name: dateFormatter,
+    params : [
+        formatAsShownInMomentJsLibrary,
+        newDateFieldName
+    ]
+}`
+
 export var dateFormatter = (input, next) => {
     let format = input.config.transformations[0].params[0];
     let newField = input.config.transformations[0].params[1];

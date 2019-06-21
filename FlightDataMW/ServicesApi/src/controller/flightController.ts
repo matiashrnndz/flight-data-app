@@ -5,7 +5,8 @@ export class FlightController {
     constructor() { }
 
     async deliver(url: string, contentType: string, flight) {
-        axios.post(url, flight, { headers: { 'Content-Type': contentType}})
+        console.log(flight);
+        axios.post(url, flight)
         .then((res) => { })
         .catch((error) => {
             console.error(error);

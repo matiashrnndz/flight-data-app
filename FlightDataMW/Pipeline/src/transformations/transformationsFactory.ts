@@ -9,3 +9,4 @@ export var transformationsFactory = {
     parseCancellationReason: parseCancellationReason,
     toBoolean: toBoolean
 }
+
