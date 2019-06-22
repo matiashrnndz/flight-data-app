@@ -1,0 +1,5 @@
+{
+    "url-to-register": "http://localhost:8097/register",
+    "url-to-delete": "http://localhost:8097/delete",
+    "url-to-discover": "http://localhost:8097/discover"
+}

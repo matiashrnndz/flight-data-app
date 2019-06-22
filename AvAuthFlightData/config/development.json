@@ -3,13 +3,13 @@
         "url": "mongodb://localhost:27017/db"
     },
     "providers": {
-        "flights-uri": "./data/reduced.csv",
+        "flights-uri": "./data/flights.csv",
         "airlines-uri": "http://localhost:8084/airlines",
         "airports-uri": "http://localhost:8081/airports"
     },
     "carga": {
         "cantLotes": 1,
-        "tamLote": 0,
+        "tamLote": 500,
         "offset": 0
     },
     "clients": {
