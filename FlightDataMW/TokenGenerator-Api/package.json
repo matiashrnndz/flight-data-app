@@ -1,0 +1,28 @@
+{
+  "name": "serviceregistry",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.1.0",
+    "json": "^9.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "minimist": "^1.2.0",
+    "moment": "^2.24.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.4",
+    "@types/winston": "^2.4.4",
+    "nodemon": "^1.19.1",
+    "ts-node": "^8.2.0",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.5.1"
+  }
+}

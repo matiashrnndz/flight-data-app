@@ -1,6 +1,6 @@
 import { initServer } from './server';
 import { RegisterService } from './services/registerService';
-import * as Config from 'config'
+import * as Config from 'config';
 
 let registerService = new RegisterService();
 
@@ -8,11 +8,14 @@ let registerService = new RegisterService();
     try {
         await initServer();
 
-        // UNCOMMENT TO EXCECUTE REGISTER
+        // UNCOMMENT TO EXCECUTE REGISTER SERVICE
         //console.log(await registerService.register(Config.get('url-to-register'), registerData()));
 
         // UNCOMMENT TO DISCOVER
         //console.log(await registerService.discover(Config.get('url-to-discover')));
+
+        // UNCOMMENT TO DELETE THE SERVICE
+        //console.log(await registerService.delete(Config.get('url-to-delete')));
 
     } catch(err) {
         console.log(`Error initializing server: ${err}`);
@@ -23,7 +26,6 @@ let registerService = new RegisterService();
 function registerData() {
     let config = {
         options: {
-            airline: "AA",
             ip: "localhost",
             port: 8070,
             protocol: "json"

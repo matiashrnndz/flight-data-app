@@ -8,11 +8,11 @@
         "airports-uri": "http://localhost:8081/airports"
     },
     "carga": {
-        "cantLotes": 1,
-        "tamLote": 500,
+        "cantLotes": 0,
+        "tamLote": 1250,
         "offset": 0
     },
     "clients": {
-        "flightDataMW-uri": "http://localhost:8090/flights"
+        "flightDataMW-uri": "http://localhost:8100/flights"
     }
 }

@@ -1,12 +1,13 @@
 import * as redis from 'redis';
-import Pipeline from '../pipeline/pipelineTS'
+import Pipeline from '../pipeline/pipeline'
 import { filterFactory } from '../filters/filterFactory';
 import { transformationsFactory } from '../transformations/transformationsFactory';
 import { outputFields } from '../output-fields/outputFields';
+import { Logger } from '../logger/loggerApi';
 
 let client: redis.RedisClient = redis.createClient(6379, '127.0.0.1');
 client.on('connect', function() {
-    console.log(`Setup connected to redis on : 127.0.0.1:6379`);
+    Logger.info(`Setup connected to redis on : 127.0.0.1:6379`);
 });
 
 export default class ForwardToProcess {
@@ -19,6 +20,7 @@ export default class ForwardToProcess {
                 let airlineConfig = JSON.parse(reply);
                 if (airlineConfig.options.airline == flight.AIRLINE) {
                     flight.config = airlineConfig;
+                    Logger.info(`Pipeline initialized with flight : ${flight.id}`);
                     initPipeline(flight);
                 }
             });
@@ -30,10 +32,10 @@ export default class ForwardToProcess {
 async function initPipeline(flight) {
     var pipeline = new (Pipeline())();
     pipeline.on('error', (err) => {
-        console.log(`${err}`);
+        Logger.error(`Pipeline : ${err}`);
     });
     pipeline.on('end', (result) => {
-        //console.log(`The result is ${JSON.stringify(result)}`);
+        Logger.info(`Pipeline Result : ${JSON.stringify(result)}`);
     });
     if(flight.config.filters) {
         for (let i = 0; i < flight.config.filters.length; i++) {

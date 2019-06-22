@@ -1,4 +1,7 @@
 {
+    "logger": {
+        "type": "winston"
+    },
     "redis": {
         "host": "localhost"
     },

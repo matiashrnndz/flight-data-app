@@ -2,6 +2,7 @@ const FlightRepository = require('./flightRepository');
 const Queue = require('bull');
 import ForwardToProcess from '../forwardToProcess';
 import * as redis from 'redis';
+import { Logger } from '../../logger/loggerApi'
 
 module.exports = class FlightRedisRepository extends FlightRepository {
     
@@ -14,6 +15,7 @@ module.exports = class FlightRedisRepository extends FlightRepository {
 
     initQueueToProcess() {
         this.queueToProcess = new Queue('flights-to-process');
+        Logger.info('Started connection to queue flights-to-process');
         this.queueToProcess.on('completed', (job, result) => {
             job.remove();
         });
@@ -22,7 +24,7 @@ module.exports = class FlightRedisRepository extends FlightRepository {
     initRedis() {
         this.client = redis.createClient(6379, '127.0.0.1');
         this.client.on('connect', function() {
-            console.log(`flightRedisRepository connected to redis on : 127.0.0.1:6379`);
+            Logger.info('Started connection to redis on : 127.0.0.1:6379');
         });
     }
 
@@ -47,6 +49,7 @@ module.exports = class FlightRedisRepository extends FlightRepository {
     async refreshConfigs() {
         this.client.keys('airline-*', (err, keys) => {
             if (err) {
+                Logger.error("Repository > RefreshConfigs threw : " + err.message);
                 return new Error(err.message);
             }
             this.airlineKeys = keys;
@@ -62,6 +65,7 @@ module.exports = class FlightRedisRepository extends FlightRepository {
     }
 
     async updateDescriptionsInRedis() {
+        Logger.info("Set discover-functions into Redis");
         this.client.set('discover-functions', this.descriptionValue);
     }
 

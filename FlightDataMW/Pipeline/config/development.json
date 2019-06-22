@@ -1,4 +1,7 @@
 {
+    "logger": {
+        "type": "winston"
+    },
     "repository": {
         "type": "redis"
     },

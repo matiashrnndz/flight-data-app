@@ -26,9 +26,10 @@ export class FlightController {
             * Offset = ${offset}`);
 
         if (cantLotes == 0) {
-            //TODO loop till end of repository
-            await FlightController.postFlights(uri, tamLotes, offset);
-            offset = offset + tamLotes;
+            while(Config.get('carga.cantLotes') == 0) {
+                await FlightController.postFlights(uri, tamLotes, offset);
+                offset = offset + tamLotes;
+            }
         } else {
             for (var i = 1; i <= cantLotes; i++) {
                 console.log("Sending " + i + " request of " + cantLotes);
@@ -40,7 +41,6 @@ export class FlightController {
 
     private static async postFlights(url: string, tamLotes: Number, offset: Number) {
         let flights = await FlightService.getAll(tamLotes, offset);
-        //console.log(flights);
         for (let i = 0; i < flights.length; i++) {
             flights[i].TIMESTAMP = new Date().getTime();
         }

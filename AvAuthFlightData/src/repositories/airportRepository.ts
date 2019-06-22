@@ -5,7 +5,7 @@ export class AirportRepository {
     private constructor() { }
 
     static async getAll() {
-        var query = Repository.Airport.find();
+        var query = await Repository.Airport.find();
         let airports = await query;
         return airports.map((airport) => airport.toObject());
     }

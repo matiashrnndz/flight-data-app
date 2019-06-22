@@ -15,4 +15,8 @@ export class RegisterService {
     async discover(url) {
         return await this.registerController.discover(url);
     }
+
+    async delete(url) {
+        return await this.registerController.delete(url);
+    }
 }

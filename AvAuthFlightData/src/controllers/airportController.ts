@@ -9,6 +9,7 @@ export class AirportController {
     static async getAll (ctx, next) {
         let list = (await AirportService.getAll()) || [];
         ctx.body = { size: list.length, data: list };
+        console.log("finished AirportService from airport controller");
         await next();
     };
 
@@ -19,7 +20,6 @@ export class AirportController {
 
         axios.get(uri)
         .then((res) => {
-            console.log(res.data);
             for (let i=0; i<res.data.length; i++) {
                 AirportService.save(res.data[i]);
             }

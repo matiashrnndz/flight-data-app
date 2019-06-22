@@ -1,5 +1,6 @@
 import { FlightService } from '../services/flightService';
 import * as async from 'async';
+import { Logger } from '../logger/loggerApi';
 
 export class FlightController {
 
@@ -14,14 +15,14 @@ export class FlightController {
         if (data) {
             if (data.flights) {
                 async.forEachOf(data.flights, (value: any, key, callback) => {
-                    console.log(`request processed in ${this.time(value.TIMESTAMP)} seconds.`);
+                    Logger.info(`Request processed in ${this.time(value.TIMESTAMP)} seconds for flight ${value.id}`);
                     this.flightService.save(value);
                     callback();
                 }, err => {
                     if (err) {
-                        console.log('A request failed to process');
+                        Logger.error(`Request failed to process : ${err.message}`);
                       }
-                    console.log(`All requests have been processed`);
+                    Logger.info(`All requests has been processed`);
                 });
             }
             ctx.body = data;

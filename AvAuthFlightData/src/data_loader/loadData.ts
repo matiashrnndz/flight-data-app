@@ -11,20 +11,15 @@ export function initDataLoader() {
         await AirportController.getAirports();
 
         setTimeout(() => {
-            AirportService.getAll().then(
-                function onFulfilled(airportsValue) {
-                    AirlineService.getAll().then(
-                        function onFullFilled(airlinesValue) {
-                            setTimeout(() => {
-                                FlightRepository.loadFlights(airlinesValue, airportsValue).then(
-                                    function onFullFilled(value) {
-                                        console.log("Finished loading flights.");
-                                    })}, 5000);
-                        }
-                    );
-                }
-            );
-        }, 2000);
+            AirportService.getAll().then(function onFulfilled(airportsValue) {
+                AirlineService.getAll().then(function onFullFilled(airlinesValue) {
+                    setTimeout(() => {
+                        FlightRepository.loadFlights(airlinesValue, airportsValue).then(function onFullFilled(value) {
+                        console.log("Finished loading flights."); })
+                    }, 7000);
+                });
+            });
+        }, 3000);
     })();
 
 }

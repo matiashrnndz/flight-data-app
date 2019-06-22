@@ -1,9 +1,6 @@
 import { Repository } from './repository'
 import * as Config from 'config';
 import * as CsvtojsonV2 from 'csvtojson';
-import { Flight } from '../models/flight'
-import { AirlineRepository } from './airlineRepository';
-import { Airline } from '../models/airline';
 
 export class FlightRepository {
 
@@ -29,7 +26,7 @@ export class FlightRepository {
 
     static async loadFlights(airlines, airports) {
         try {
-            CsvtojsonV2().fromFile(Config.get('providers.flights-uri'))
+            await CsvtojsonV2().fromFile(Config.get('providers.flights-uri'))
             .subscribe((json, lineNumber) => {
                 return new Promise((resolve, reject) => {
                     FlightRepository.save(json, airlines, airports);

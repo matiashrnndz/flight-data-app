@@ -8,6 +8,7 @@ export class AirlineController {
 
     static async getAll (ctx, next) {
         let list = (await AirlineService.getAll()) || [];
+        console.log("finished AirlineService from airline controller");
         ctx.body = { size: list.length, data: list };
         await next();
     };
@@ -19,7 +20,6 @@ export class AirlineController {
 
         axios.get(uri)
         .then((res) => {
-            console.log(res.data);
             for (let i=0; i<res.data.length; i++) {
                 AirlineService.save(res.data[i]);
             }
