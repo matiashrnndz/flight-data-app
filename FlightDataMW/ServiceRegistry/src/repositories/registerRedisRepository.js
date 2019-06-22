@@ -20,14 +20,14 @@ module.exports = class RegisterRedisRepository extends RegisterRepository {
     }
 
     async delete(key) {
-        this.client.del(key, function(err, number) {
+        return await this.client.del(key, function(err, number) {
             if (err) {
                 return new Error(err.message);
             }
             if (number >= 1) {
-                return `Deleted ${key}.`;
+                return { Message: `Deleted ${key}.`};
             }
-            return `There was no ${key} in database.`
+            return { Message: `There was no ${key} in database.` };
         })
     }
 

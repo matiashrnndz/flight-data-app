@@ -8,30 +8,18 @@ export class RegisterService {
         this.registerRepository = new RegisterRepository();
     }
 
-    async register(data) {
-        let uid = 'airline-' + generateUUID();
-        data.options.idClient = uid;
+    async register(IATA_CODE, SERVICE_ID, data) {
+        data.options.airline = IATA_CODE;
+        data.options.idClient = SERVICE_ID;
         return await this.registerRepository.register(data);
     }
 
-    async delete(id) {
-        return await this.registerRepository.delete(id);
+    async delete(SERVICE_ID) {
+        return await this.registerRepository.delete(SERVICE_ID);
     }
 
     async discover() {
         return await this.registerRepository.discover();
     }
 
-}
-
-function generateUUID() {
-    var d = new Date().getTime();
-    if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
-        d += performance.now();
-    }
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
 }
