@@ -1,0 +1,35 @@
+{
+  "name": "airlinedlplanning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "config": "^3.1.0",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-xml-body": "^2.1.0",
+    "minimist": "^1.2.0",
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/koa": "^2.0.48",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.0.40",
+    "@types/node": "^12.0.4",
+    "nodemon": "^1.19.1",
+    "ts-node": "^8.2.0",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.5.1"
+  }
+}

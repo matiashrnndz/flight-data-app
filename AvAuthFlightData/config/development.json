@@ -1,0 +1,18 @@
+{
+    "repository": {
+        "url": "mongodb://localhost:27017/db"
+    },
+    "providers": {
+        "flights-uri": "./data/flights.csv",
+        "airlines-uri": "http://localhost:8084/airlines",
+        "airports-uri": "http://localhost:8081/airports"
+    },
+    "carga": {
+        "cantLotes": 10,
+        "tamLote": 700,
+        "offset": 0
+    },
+    "clients": {
+        "flightDataMW-uri": "http://localhost:8100/flights"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "logger": {
+        "type": "winston"
+    },
+    "redis": {
+        "host": "localhost"
+    },
+    "queues": [
+        { "name": "flights-to-process", "host": "local" },
+        { "name": "flights-to-deliver", "host": "local" }
+    ]
+}

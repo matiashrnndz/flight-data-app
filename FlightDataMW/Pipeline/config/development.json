@@ -1,0 +1,11 @@
+{
+    "logger": {
+        "type": "winston"
+    },
+    "repository": {
+        "type": "redis"
+    },
+    "pipeline": {
+      "pipe": "direct"
+    }
+}

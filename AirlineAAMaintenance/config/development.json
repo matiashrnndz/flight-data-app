@@ -1,0 +1,6 @@
+{
+    "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJJQVRBX0NPREUiOiJBQSIsIlNFUlZJQ0VfSUQiOiJhaXJsaW5lLUFBLTUzNWZlMzc0LTc5YzMtNDUyMC04NTQ0LTBhNjMzMmI1ZTNjNSIsImlhdCI6MTU2MTI0MDI3OSwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo4MDk3IiwiaXNzIjoiQVNfT2JsIiwic3ViIjoiQUEifQ.R-q0L9P-t0EJVxcMi4LUhcgd-o7QdvpTdqg1A3xavDozx_-VdiGQdyL5zG-C2nZqAyYa_IcDSn5QLhP89lJzdw",
+    "url-to-register": "http://localhost:8097/register",
+    "url-to-delete": "http://localhost:8097/delete",
+    "url-to-discover": "http://localhost:8097/discover"
+}
