@@ -1,18 +1,75 @@
-{
-    "repository": {
-        "url": "mongodb://localhost:27017/db"
-    },
-    "providers": {
-        "flights-uri": "./data/flights.csv",
-        "airlines-uri": "http://localhost:8084/airlines",
-        "airports-uri": "http://localhost:8081/airports"
-    },
-    "carga": {
-        "cantLotes": 10,
-        "tamLote": 700,
-        "offset": 0
-    },
-    "clients": {
-        "flightDataMW-uri": "http://localhost:8100/flights"
-    }
-}
+# ASP_Obl
+
+# Scope
+
+# Purpose
+
+# Deploy
+
+1. Download repository
+
+2. Gemfile dependencies
+
+```ruby
+bundle install
+```
+
+3. Heroku
+
+- Create new app in Heroku webpage named app-coupons
+
+- Login in Heroku via terminal
+
+```bash
+heroku login
+```
+
+- Create a new Git repository
+
+```bash
+heroku git:remote -a app-coupons
+```
+
+- Setting buildpack default for the application
+
+```bash
+heroku buildpacks:set heroku/ruby
+```
+
+- Pushing to Heroku repository
+
+```bash
+git push heroku master
+```
+
+- Adding environment variables to Heroku
+
+```bash
+MAIL_PASSWORD = ...
+
+```
+
+- Running Migrations
+```bash
+heroku run db:migrate
+```
+
+
+
+
+
+
+
+
+2. Download and run Docker Container of Loggly
+```bash
+sudo docker run -d -p 514/udp --name loggly-docker -e TOKEN=TOKEN -e TAG=Docker sendgridlabs/loggly-docker
+```
+> Replace: TOKEN: your customer token from the source setup page
+
+3. Adding config of Logglier to config/environments/<environment>.rb
+```ruby
+require 'logglier'
+config.logger = Logglier.new("https://logs-01.loggly.com/inputs/TOKEN/tag/ruby/", :threaded => true)
+```
+> Replace: TOKEN: your customer token from the source setup page
